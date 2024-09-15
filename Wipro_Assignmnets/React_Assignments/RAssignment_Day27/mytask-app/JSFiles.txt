@@ -1,0 +1,551 @@
+//app.js
+import React from 'react';
+import './App.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import CreateTaskPage from './pages/CreateTaskPage';
+import EditTaskPage from './pages/EditTaskPage';
+import TaskDetailPage from './pages/TaskDetailPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/createTask" element={<CreateTaskPage />} />
+          <Route path="/editTask/:id" element={<EditTaskPage />} />
+          <Route path="/displayTask/:id" element={<TaskDetailPage />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+//app.css
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('./nature-background.jpg');
+  background-size: cover; 
+  background-attachment:fixed;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  backdrop-filter: blur(10px); 
+}
+
+h1 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+
+.form-control {
+  margin-bottom: 15px;
+  border-radius: 4px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  box-shadow: none;
+}
+
+.btn {
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary{
+  width: 150px;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Task List Styles */
+.Homepage.container {
+  display: flex;
+  flex-direction: column;
+  width: 600px; 
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.list-group-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 510px;
+  height: 160px;
+  margin-bottom: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: rgba(240, 248, 255, 0.9); 
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: rgba(224, 236, 244, 0.9);
+}
+
+.list-group-item h5 {
+  margin: 0;
+  font-size: 22px;
+  color: #007bff;
+}
+
+.list-group-item p {
+  margin: 10px 0;
+  color: #555;
+  font-size: 16px;
+}
+
+.list-group-item span {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+}
+
+.btn.btn-primary.mb-3{
+  margin-left: 15px;
+}
+
+/* Task Detail Styles */
+.Taskdetailspage.container{
+  display: flex;
+  flex-direction: column;
+  width: 500px; 
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.card {
+  margin-top: 20px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.card-text {
+  font-size: 16px;
+  color: #555;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Create Task Details */
+.Createtask.container{
+  display: flex;
+  flex-direction: column;
+  width: 500px; 
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.form-group{
+  width: 380px;
+}
+
+/* Edit Task Details */
+.Edittask.container{
+  display: flex;
+  flex-direction: column;
+  width: 500px; 
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.btn.btn-primary{
+  justify-content: center;
+  margin-left: 120px;
+}
+
+//index.css
+body {
+  font-family: Arial, sans-serif;
+}
+
+.App {
+  padding: 20px;
+}
+
+//taskservice.js
+const API_URL = 'http://localhost:5000/tasks';
+
+export const getTasks = async () => {
+  const response = await fetch(API_URL);
+  if (!response.ok) throw new Error('Failed to fetch tasks');
+  return response.json();
+};
+
+export const getTaskById = async (id) => {
+  const response = await fetch(`${API_URL}/${id}`);
+  if (!response.ok) throw new Error('Failed to fetch task');
+  return response.json();
+};
+
+export const createTask = async (task) => {
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(task),
+  });
+  if (!response.ok) throw new Error('Failed to create task');
+  return response.json();
+};
+
+export const updateTask = async (id, task) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(task),
+  });
+  if (!response.ok) throw new Error('Failed to update task');
+  return response.json();
+};
+
+export const deleteTask = async (id) => {
+  const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+  if (!response.ok) throw new Error('Failed to delete task');
+};
+
+
+//taskdetails.js
+import React from 'react';
+
+const TaskDetails = ({ task }) => {
+  if (!task) return <p>Loading...</p>;
+
+  return (
+    <div className="card">
+      <div className="card-body">
+        <h5 className="card-title">{task.title}</h5>
+        <p className="card-text">{task.description}</p>
+        <p className="card-text">Status: {task.status}</p>
+      </div>
+    </div>
+  );
+};
+
+export default TaskDetails;
+
+//taskform.js
+import React from 'react';
+
+const TaskForm = ({ task, onChange, onSubmit }) => {
+  return (
+    <form onSubmit={onSubmit}>
+      <div className="form-group">
+        <label>Title</label>
+        <input
+          type="text"
+          className="form-control"
+          name="title"
+          value={task.title}
+          onChange={onChange}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label>Description</label>
+        <textarea
+          className="form-control"
+          name="description"
+          value={task.description}
+          onChange={onChange}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label>Status</label>
+        <select
+          className="form-control"
+          name="status"
+          value={task.status}
+          onChange={onChange}
+        >
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+      <button type="submit" className="btn btn-primary">Submit</button>
+    </form>
+  );
+};
+
+export default TaskForm;
+
+
+//tasklist.js
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const TaskList = ({ tasks, onDelete }) => {
+  return (
+    <ul className="list-group mt-3">
+      {tasks.map(task => (
+        <li key={task.id} className="list-group-item">
+          <h5>{task.title}</h5>
+          <p>{task.description}</p>
+          <span>Status: {task.status}</span><br/>
+          <Link to={`/editTask/${task.id}`} className="btn btn-warning btn-sm mx-2">Edit</Link>
+          <button className="btn btn-danger btn-sm" onClick={() => onDelete(task.id)}>Delete</button>
+          <Link to={`/displayTask/${task.id}`} className="btn btn-info btn-sm mx-2">View</Link>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export default TaskList;
+
+
+// createtaskpage.js
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createTask } from '../services/taskService';
+import TaskForm from '../components/TaskForm';
+
+const CreateTaskPage = () => {
+  const [task, setTask] = useState({ title: '', description: '', status: 'Pending' });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setTask({ ...task, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await createTask(task);
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="Createtask container">
+      <h2>Create New Task</h2>
+      <TaskForm task={task} onChange={handleChange} onSubmit={handleSubmit} />
+    </div>
+  );
+};
+
+export default CreateTaskPage;
+
+//edittaskpage.js
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getTaskById, updateTask } from '../services/taskService';
+import TaskForm from '../components/TaskForm';
+
+const EditTaskPage = () => {
+  const { id } = useParams();
+  const [task, setTask] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      try {
+        const data = await getTaskById(id);
+        setTask(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTask();
+  }, [id]);
+
+  const handleChange = (e) => {
+    setTask({ ...task, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateTask(id, task);
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (!task) return <p>Loading...</p>;
+
+  return (
+    <div className="Edittask container">
+      <h2>Edit Task</h2>
+      <TaskForm task={task} onChange={handleChange} onSubmit={handleSubmit} />
+    </div>
+  );
+};
+
+export default EditTaskPage;
+
+//homepage.js
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getTasks, deleteTask } from '../services/taskService';
+import TaskList from '../components/TaskList';
+
+const HomePage = () => {
+  const [tasks, setTasks] = useState([]);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const data = await getTasks();
+        setTasks(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteTask(id);
+      setTasks(tasks.filter(task => task.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const filteredTasks = tasks.filter(task =>
+    task.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="Homepage container">
+      <h1>Task List</h1>
+      <input
+        type="text"
+        placeholder="Search by title"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="form-control mb-3"
+      />
+      <Link to="/createTask" className="btn btn-primary mb-3">Create New Task</Link>
+      <TaskList tasks={filteredTasks} onDelete={handleDelete} />
+    </div>
+  );
+};
+
+export default HomePage;
+
+//taskdetailspage.js
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getTaskById } from '../services/taskService';
+import TaskDetails from '../components/TaskDetails';
+
+
+const TaskDetailPage = () => {
+  const { id } = useParams();
+  const [task, setTask] = useState(null);
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      try {
+        const data = await getTaskById(id);
+        setTask(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTask();
+  }, [id]);
+
+  return (
+    <div className="Taskdetailspage container">
+      <h1>Task Details</h1>
+      <TaskDetails task={task} />
+    </div>
+  );
+};
+
+export default TaskDetailPage;
+
+
+//db.json
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Set up React project",
+      "description": "Initialize a new React project using Create React App or Vite.",
+      "status": "Pending"
+    },
+    {
+      "id": 2,
+      "title": "Create components",
+      "description": "Build reusable components such as Header, Footer, and Button.",
+      "status": "Completed"
+    }
+  ]
+}

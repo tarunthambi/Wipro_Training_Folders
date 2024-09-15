@@ -1,0 +1,21 @@
+.card-container{
+    display:flex;
+    flex-wrap: wrap;
+    gap:16px;
+}
+
+.card{
+    background-color: #f9f9f9;
+    border:1px solid black;
+    border-radius: 8px;
+    padding: 20px;
+    width: 210px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.card h2{
+    font-size:1.25rem;
+    margin-bottom: 8px;
+}
+.card p{
+    font-size: 1rem;
+}

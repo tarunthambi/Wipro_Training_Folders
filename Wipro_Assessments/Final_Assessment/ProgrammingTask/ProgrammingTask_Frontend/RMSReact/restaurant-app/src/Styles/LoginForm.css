@@ -1,0 +1,44 @@
+/* Custom styles for LoginForm */
+
+/* Centering the container */
+.login-container {
+    min-height: 100vh; /* Make the container fill the viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling the form */
+.login-form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input field styles */
+.form-control {
+    font-size: 16px;
+    padding: 12px;
+}
+
+.form-control::placeholder {
+    color: #888;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Button styles */
+.btn-primary {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 0.375rem; /* Consistent border radius */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}

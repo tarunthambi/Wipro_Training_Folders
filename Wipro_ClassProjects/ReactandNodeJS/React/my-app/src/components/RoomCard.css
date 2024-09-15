@@ -1,0 +1,23 @@
+#div{
+    border:1px solid #ccc;
+    border-radius:15px;
+    padding:10px;
+    width:150px;
+    text-align:center;
+    background-color:white;
+    height: 160px;
+}
+
+#rimg{
+    width:100%;
+    height:auto;
+    border-radius:15px;
+}
+#rimg:hover{
+    transform: scale(1.04);
+    transition: transform 0.3s ease;
+}
+
+#cardh3{
+    font-size: 20px;
+}

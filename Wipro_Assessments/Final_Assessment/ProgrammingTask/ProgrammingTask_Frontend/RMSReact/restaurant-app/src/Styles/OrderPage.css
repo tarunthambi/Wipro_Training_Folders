@@ -1,0 +1,21 @@
+/* Custom styles for OrderPage */
+.container {
+    max-width: 800px;
+}
+
+/* Improve spacing around form elements */
+.mb-3, .my-4 {
+    margin-bottom: 1rem !important;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+.form-select {
+    border-radius: 0.375rem; /* Custom border radius */
+}
+
+.list-group-item {
+    border-radius: 0.375rem; /* Custom border radius for list items */
+}

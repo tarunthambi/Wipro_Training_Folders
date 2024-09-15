@@ -1,0 +1,50 @@
+// TASK 3
+
+Basic Queries:
+
+//1. Query to find all students who are enrolled
+
+db.students.find({ enrolled: true })
+
+//ANSWER: WE WILL GET 7 DOCUMENTS WHO ARE ENROLLED
+
+
+//2. Query to find students with age greater than 10
+
+db.students.find({ age: { $gt: 10 } })
+
+//ANSWER: WE WILL GET 8 DOCUMENTS WHO'S AGE IS GREATER THAN 10
+
+
+//3. Query to find students whose email ends with @school.com
+
+db.students.find({ email: { $regex: /@school\.com$/ } })
+
+//ANSWER: WE WILL GET ALL 10 DOCUMENTS
+
+
+
+Advanced Queries:
+
+//1. Query to find the name and email of students who are in grade 5 or higher, sorted by age in descending order
+
+db.students.find({ grade: { $gte: "5" } }, { name: 1, email: 1, _id: 0 }).sort({ age: -1 })
+
+//ANSWER : WE WILL GET 9 DOCUMENTS WHOSE GRADE IS GREATER THAN OR EQUAL TO 5
+
+//2. Query to find all students, skipping the first 2 records and limiting the result to the next 3 records
+
+db.students.find().skip(2).limit(3)
+
+//ANSWER : WE WILL GET 3 DOCUMENTS AS MENTIONED
+
+
+Aggregation:
+
+//1. Aggregation pipeline to group students by grade and count the number of students in each grade
+
+db.students.aggregate([ { $group: { _id: "$grade", count: { $sum: 1 } } } ])
+
+//ANSWER : WE WILL GET 6 DOCUMENTS GROUPED BY grade FIELD AND THIER count
+
+

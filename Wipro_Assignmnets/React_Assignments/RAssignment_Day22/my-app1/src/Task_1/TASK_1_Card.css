@@ -1,0 +1,40 @@
+/* for horizantal card */
+.horizontal-card {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+}
+  
+.horizontal-card .row {
+    margin: 0;
+}
+  
+.horizontal-card .col-md-4,
+.horizontal-card .col-md-8,
+.horizontal-card .col-md-12 {
+    padding: 25px;
+}
+
+.horizontal-card .col-md-4{
+    background-color:beige;
+
+}
+
+.horizontal-card .col-md-12{
+    background-color: lightgray;
+}
+  
+  
+/* for vertical card */
+.card {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: lightgray;
+    margin: 16px;
+    height: 70%;
+    width: 60vh;
+    margin-left: 100px;
+}
+

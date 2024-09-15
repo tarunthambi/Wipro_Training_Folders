@@ -1,0 +1,40 @@
+//TASK-1
+
+//For creating a database
+use schooldb;
+
+//Creating students collection
+db.createCollection("students");
+
+//Implementing Schema Validation
+db.createCollection("students", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["name", "email", "age", "grade", "enrolled"],
+            properties: {
+                name: {
+                    bsonType: "string"
+                },
+                email: {
+                    bsonType: "string",
+                    pattern: "^.+@.+\\..+$"
+                },
+                age: {
+                    bsonType: "int",
+                    minimum: 5
+                },
+                grade: {
+                    bsonType: "string"
+                },
+                enrolled: {
+                    bsonType: "bool"
+                }
+            }
+        }
+    }
+})
+
+
+//Creating a Descending Index on Field name
+db.students.createIndex({ name: -1 })

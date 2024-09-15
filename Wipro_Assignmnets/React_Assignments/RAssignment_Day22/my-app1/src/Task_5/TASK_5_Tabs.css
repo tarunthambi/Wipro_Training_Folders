@@ -1,0 +1,38 @@
+.tabs-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .tabs-header {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+    position: relative;
+  }
+  
+  .tab.active {
+    background-color: #f0f0f0;
+    border-bottom: none;
+  }
+  
+  .close-button {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+    font-size: 12px;
+  }
+  
+  .tabs-content {
+    padding: 100px;
+    border: 1px solid #ddd;
+    border-top: none;
+  }
+  

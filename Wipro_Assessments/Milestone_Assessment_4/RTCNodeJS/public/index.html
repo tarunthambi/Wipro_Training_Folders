@@ -1,0 +1,137 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #input-form {
+            position:flex;
+            top: 20px;
+            left: 20px;
+            background-color:aliceblue;
+            padding: 25px;
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 50%;
+            height: 60%;
+            background-color: aliceblue;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 140px;
+        }
+        #chat-window {
+            flex: 1;
+            overflow-y: auto;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            background-color: aliceblue;
+        }
+        #chat-window p {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+
+        #chat-input{
+            width: 45%;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 10px;
+        }
+        button {
+            margin-left: 10px;
+        }
+
+        #input-area {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="input-form">
+        <input type="text" id="username" placeholder="Enter your username" required>
+        <input type="text" id="room" placeholder="Enter room name" required>
+        <button id="join-btn">Join Chat</button>
+    </div>
+
+
+    <div id="chat-container" style="display: none;">
+        <div id="chat-window"></div>
+        <div id="input-area">
+            <input type="text" id="chat-input" placeholder="Type your message..." required>
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const joinBtn = document.getElementById('join-btn');
+        const chatContainer = document.getElementById('chat-container');
+        const inputForm = document.getElementById('input-form');
+        const socket = io();
+
+        joinBtn.addEventListener('click', () => {
+            const username = document.getElementById('username').value;
+            const room = document.getElementById('room').value;
+
+            if (username.trim() && room.trim()) {
+                // we will hide the input form and show the chat container
+                inputForm.style.display = 'none';
+                chatContainer.style.display = 'flex';
+
+                socket.emit('joinRoom', { username, room });
+
+                // this will listen for messages from the server
+                socket.on('message', (message) => {
+                    const chatWindow = document.getElementById('chat-window');
+                    const messageElement = document.createElement('p');
+                    messageElement.textContent = `${message.user}: ${message.text}`;
+                    chatWindow.appendChild(messageElement);
+                    chatWindow.scrollTop = chatWindow.scrollHeight;  // to auto-scroll to the bottom
+                });
+
+                // sending a message
+                const sendBtn = document.getElementById('send-btn');
+                const chatInput = document.getElementById('chat-input');
+
+                sendBtn.addEventListener('click', () => {
+                    const text = chatInput.value;
+
+                    if (text.trim() !== "") {
+                        socket.emit('chatMessage', { user: username, room, text });
+                        chatInput.value = ''; // we will clear the input after sending
+                    }
+                });
+
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendBtn.click();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> -->

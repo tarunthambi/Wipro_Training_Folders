@@ -1,0 +1,191 @@
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('./task.jpg');
+  background-size: cover; 
+  background-attachment:fixed;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  backdrop-filter: blur(10px); 
+}
+
+h1 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+
+.form-control {
+  margin-bottom: 15px;
+  border-radius: 4px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  box-shadow: none;
+}
+
+.btn {
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary{
+  width: 150px;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Task List Styles */
+.Homepage.container {
+  display: flex;
+  flex-direction: column;
+  width: 600px; 
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.list-group-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 510px;
+  height: 160px;
+  margin-bottom: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: rgba(240, 248, 255, 0.9); 
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: rgba(224, 236, 244, 0.9);
+}
+
+.list-group-item h5 {
+  margin: 0;
+  font-size: 22px;
+  color: #007bff;
+}
+
+.list-group-item p {
+  margin: 10px 0;
+  color: #555;
+  font-size: 16px;
+}
+
+.list-group-item span {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+}
+
+.btn.btn-primary.mb-3{
+  margin-left: 15px;
+}
+
+/* Task Detail Styles */
+.Taskdetailspage.container{
+  display: flex;
+  flex-direction: column;
+  width: 500px; 
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.card {
+  margin-top: 20px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.card-text {
+  font-size: 16px;
+  color: #555;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Create Task Details */
+.Createtask.container{
+  display: flex;
+  flex-direction: column;
+  width: 500px; 
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.form-group{
+  width: 380px;
+}
+
+/* Edit Task Details */
+.Edittask.container{
+  display: flex;
+  flex-direction: column;
+  width: 500px; 
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.btn.btn-primary{
+  justify-content: center;
+  margin-left: 120px;
+}

@@ -1,0 +1,25 @@
+/* src/components/styles/Home.css */
+
+.home-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .hero-section {
+    background-image: url('../../../public/images/home1.avif');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 150px 20px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-section h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+  }
+  
+  .hero-section p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }

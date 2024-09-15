@@ -1,0 +1,30 @@
+//TASK-2: Insert Sample Data
+
+
+//Inserting Valid Documents:
+
+db.students.insertMany([
+    { name: "Alice", email: "alice@school.com", age: 12, grade: "6", enrolled: true },
+    { name: "Bob", email: "bob@school.com", age: 14, grade: "8", enrolled: true },
+    { name: "Charlie", email: "charlie@school.com", age: 10, grade: "5", enrolled: false },
+    { name: "David", email: "david@school.com", age: 11, grade: "6", enrolled: true },
+    { name: "Eve", email: "eve@school.com", age: 13, grade: "7", enrolled: false },
+    { name: "Frank", email: "frank@school.com", age: 9, grade: "4", enrolled: true },
+    { name: "Grace", email: "grace@school.com", age: 15, grade: "9", enrolled: true },
+    { name: "Hank", email: "hank@school.com", age: 12, grade: "6", enrolled: false },
+    { name: "Ivy", email: "ivy@school.com", age: 13, grade: "7", enrolled: true },
+    { name: "Jack", email: "jack@school.com", age: 14, grade: "8", enrolled: true }
+])
+
+
+//Inserting Invalid Documents to observe errors:
+
+db.students.insertMany([
+    { name: "Invalid1", email: "invalid1school.com", age: 4, grade: "2", enrolled: "yes" },
+    { name: 12345, email: "invalid2@school.com", age: 7, grade: "2", enrolled: true }, 
+    { name: "Invalid3", email: "invalid3@school.com", age: 6, grade: "2" }
+])
+
+//AFTER ENTERING THE ABOVE CODE WE GOT AN ERROR 
+			==> MongoBulkWriteError: Document failed validation
+

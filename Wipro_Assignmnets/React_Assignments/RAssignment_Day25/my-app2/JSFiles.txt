@@ -1,0 +1,312 @@
+//app.js
+import './App.css';
+import { useState } from 'react';
+import Toggle from './Task1/Toggle';
+import ColorPicker from './Task2/ColorPicker';
+import TodoList from './Task3/ToDoList';
+import Stopwatch from './Task4/Stopwatch';
+import Rating from './Task5/Rating';
+
+function App() {
+
+  //task-1
+  const [toggleState, setToggleState] = useState(false);
+
+  const handleToggle = (state) => {
+      setToggleState(state);
+      console.log('Toggle is now:', state ? 'On' : 'Off');
+  };
+
+  //task-2
+
+  const handleColorSelect = (color) => {
+      console.log(`Selected Color: ${color}`);
+  };
+
+  // task-3
+  const [tasks, setTasks] = useState([]);
+
+  const handleTasksUpdate = (updatedTasks) => {
+    setTasks(updatedTasks);
+  };
+
+  // task-4
+  const [time, setTime] = useState(0);
+
+  const handleTimeUpdate = (newTime) => {
+    setTime(newTime);
+  };
+
+  // task-5
+  const [selectedRating, setSelectedRating] = useState(0);
+
+  const handleRatingChange = (rating) => {
+    setSelectedRating(rating);
+  };
+
+  return (
+    <div className="App">
+      {/* task-1 */}
+       <h3>Toggle Button</h3>
+       <Toggle initialState={toggleState} onToggle={handleToggle} />
+      {/* task-2 */}
+      <br/>
+      <br/>
+      <h3>Color Picker</h3>
+        <div className="App container my-6">
+            <ColorPicker onColorSelect={handleColorSelect} />
+        </div>
+      {/* task-3 */}
+      <br/>
+      <br/>
+      <h3>Todo List</h3>
+      <TodoList onTasksUpdate={handleTasksUpdate} />
+      {/* task-4 */}
+      <br/>
+      <br/>
+      <h2>Stopwatch</h2>
+      <Stopwatch initialTime={0} onTimeUpdate={handleTimeUpdate} />
+      <br/>
+      <br/>
+      <div className="container text-center mt-5">
+        <h2>Rate the Movie:</h2>
+        <Rating initialRating={selectedRating} onRatingChange={handleRatingChange} isLocked={false} /><br/>
+        <h4><b>Your rating: {selectedRating}</b></h4>
+      </div>
+      <br/>
+      <br/>
+    </div>
+
+  );
+}
+
+export default App;
+
+//toggle
+import React, { useState } from 'react';
+import './Toggle.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const Toggle = ({ initialState = false, onToggle }) => {
+    const [isOn, setIsOn] = useState(initialState);
+
+    const handleToggle = () => {
+        const newState = !isOn;
+        setIsOn(newState);
+        onToggle(newState);
+    };
+
+    return (
+        <div className="toggle-container">
+            <button 
+                type="button" 
+                className={`btn toggle-btn ${isOn ? 'btn-success' : 'btn-danger'}`} 
+                onClick={handleToggle}
+            >
+                <span className={`toggle-switch ${isOn ? 'on' : ''}`}></span>
+                <span className="toggle-text">{isOn ? 'ON' : 'OFF'}</span>
+            </button>
+            <h4 className="toggle-status">
+                Your WiFi is {isOn ? 'On' : 'Off'}
+            </h4>
+        </div>
+    );
+};
+
+export default Toggle;
+
+//ColorPicker
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './ColorPicker.css';
+
+const ColorPicker = ({ onColorSelect }) => {
+    const [selectedColor, setSelectedColor] = useState('#ffffff');
+
+    function handleColorClick(event){
+        setSelectedColor(event.target.value);
+        onColorSelect(event.target.value);
+    };
+
+    return (
+        <div className="color-picker">
+            <div className='circle' style={{ backgroundColor: selectedColor}}>
+                <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 10 10 L 90 10 L 90 20 L 60 20 L 60 90 L 40 90 L 40 20 L 10 20 Z"
+                          fill={selectedColor} stroke="black" strokeWidth="2"/>
+                </svg>
+            </div>
+            <div className="btn-group inside-block" role="group" aria-label="Color Picker">
+                <label><b>Select a Color: </b></label><br/>
+                <input type='color' value={selectedColor} onChange={handleColorClick}></input>
+            </div>
+        </div>
+    );
+};
+
+export default ColorPicker;
+
+//TodoList
+import React, { useState } from 'react';
+import './ToDoList.css';
+
+const TodoList = ({ onTasksUpdate }) => {
+  const [tasks, setTasks] = useState([]);
+  const [newTaskText, setNewTaskText] = useState('');
+
+  const handleCheckboxChange = (taskId) => {
+    const updatedTasks = tasks.map(task =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updatedTasks);
+    onTasksUpdate(updatedTasks);
+  };
+
+  const handleDeleteTask = (taskId) => {
+    const updatedTasks = tasks.filter(task => task.id !== taskId);
+    setTasks(updatedTasks);
+    onTasksUpdate(updatedTasks);
+  };
+
+  const handleAddTask = () => {
+    if (newTaskText.trim() === '') return;
+    const newTask = { id: Date.now(), text: newTaskText, completed: false };
+    const updatedTasks = [...tasks, newTask];
+    setTasks(updatedTasks);
+    onTasksUpdate(updatedTasks);
+    setNewTaskText('');
+  };
+
+  return (
+    <div className="todo-container">
+      <input
+        type="text"
+        className="todo-input"
+        value={newTaskText}
+        onChange={(e) => setNewTaskText(e.target.value)}
+        placeholder="Add a new task"
+      />
+      <button className="todo-button" onClick={handleAddTask}>Add Task</button>
+
+      <ul className="todo-list">
+        {tasks.map(task => (
+          <li key={task.id} className="todo-item">
+            <input
+              type="checkbox"
+              className="todo-checkbox"
+              checked={task.completed}
+              onChange={() => handleCheckboxChange(task.id)}
+            />
+            <span
+              className={`todo-text ${task.completed ? 'completed' : ''}`}
+            >
+              {task.text}
+            </span>
+            <button className="delete-button" onClick={() => handleDeleteTask(task.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default TodoList;
+
+//Stopwatch
+import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+
+const Stopwatch = ({ initialTime = 0, onTimeUpdate }) => {
+  const [elapsedTime, setElapsedTime] = useState(initialTime);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (isRunning) {
+      timer = setInterval(() => {
+        setElapsedTime(prevTime => {
+          const newTime = prevTime + 10;
+          onTimeUpdate(newTime);
+          return newTime;
+        });
+      }, 10);
+    }
+    return () => clearInterval(timer);
+  }, [isRunning, onTimeUpdate]);
+
+  const handleStart = () => setIsRunning(true);
+  const handleStop = () => setIsRunning(false);
+  const handleReset = () => {
+    setIsRunning(false);
+    setElapsedTime(0);
+    onTimeUpdate(0);
+  };
+
+  const formatTime = (time) => {
+    const milliseconds = String(Math.floor((time % 1000) / 10)).padStart(2, '0');
+    const seconds = String(Math.floor(time / 1000) % 60).padStart(2, '0');
+    const minutes = String(Math.floor(time / 60000)).padStart(2, '0');
+    return `${minutes}:${seconds}.${milliseconds}`;
+  };
+
+  return (
+    <div className="container text-center mt-4">
+      <h1>{formatTime(elapsedTime)}</h1>
+      <div className="mt-3">
+        <button
+          className="btn btn-success mx-2"
+          onClick={handleStart}
+          disabled={isRunning}
+        >
+          Start
+        </button>
+        <button
+          className="btn btn-warning mx-2"
+          onClick={handleStop}
+          disabled={!isRunning}
+        >
+          Stop
+        </button>
+        <button
+          className="btn btn-danger mx-2"
+          onClick={handleReset}
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Stopwatch;
+
+//rating
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css'; // Ensure this is imported
+
+const Rating = ({ initialRating = 0, onRatingChange, isLocked = false }) => {
+  const [rating, setRating] = useState(initialRating);
+
+  const handleClick = (value) => {
+    if (!isLocked) {
+      setRating(value);
+      onRatingChange(value);
+    }
+  };
+
+  return (
+    <div className="text-center mt-3">
+      {[1, 2, 3, 4, 5].map((value) => (
+        <i
+          key={value}
+          className={`fa${value <= rating ? 's' : 'r'} fa-star ${value <= rating ? 'text-warning' : 'text-secondary'} cursor-pointer`}
+          onClick={() => handleClick(value)}
+          style={{ fontSize: '2rem', margin: '0 5px' }}
+        ></i>
+      ))}
+    </div>
+  );
+};
+
+export default Rating;

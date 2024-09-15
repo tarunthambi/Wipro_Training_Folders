@@ -1,0 +1,2 @@
+If the asynchronous operation completes successfully, the executor will call the resolve() 
+function to change the state of the promise from pending to fulfilled with a value.

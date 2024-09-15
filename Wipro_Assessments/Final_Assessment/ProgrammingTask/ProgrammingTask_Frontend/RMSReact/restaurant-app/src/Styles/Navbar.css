@@ -1,0 +1,60 @@
+/* Custom styles for Navbar */
+.navbar-custom {
+    background-color: #f8f9fa; /* Bright background color similar to footer */
+    padding: 20px 30px;
+}
+
+.text-light {
+    font-size: 25px;
+    color: #343a40; /* Dark text color */
+}
+
+.navbar-custom .navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #343a40; /* Dark text color for brand */
+}
+
+.navbar-custom .nav-link {
+    font-size: 1.1rem;
+    color: #343a40; /* Dark color for nav links */
+    margin-right: 15px;
+}
+
+.navbar-custom .nav-link:hover {
+    color: #007bff; /* Highlight color on hover */
+}
+
+.navbar-custom .btn-outline-light {
+    border-color: #343a40;
+    color: #343a40;
+}
+
+.navbar-custom .btn-outline-light:hover {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+.navbar-custom .navbar-toggler {
+    border-color: #343a40;
+}
+
+.navbar-custom .navbar-toggler-icon {
+    background-image: none;
+    width: 30px;
+    height: 3px;
+    background-color: #343a40;
+}
+
+.navbar-custom .navbar-toggler:hover .navbar-toggler-icon {
+    background-color: #007bff; /* Change the color on hover */
+}
+
+.navbar-custom .search-bar {
+    max-width: 250px;
+}
+
+#search {
+    background-color: #f8f9fa !important;  
+    padding: 0 30px; 
+}

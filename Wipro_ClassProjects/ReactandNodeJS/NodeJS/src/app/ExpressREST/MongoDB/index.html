@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express REST API CRUD Application - MongoDB</title>
+    <style>
+       h3{text-align: center;}
+        table{
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th,td{
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        th{
+            background-color:silver;
+        }
+    </style>
+</head>
+<body>
+    <h3>Server is running up....</h3>
+    <!-- Form to add new item-->
+     <!-- <h4>Form for adding new item:</h4>
+     <form id="additem">
+        <div class="form-group">
+            <label for="itemname">Item Name:</label>
+            <input type="text" id="itemname" required/>
+            <label for="price">Price:</label>
+            <input type="number" id="price" required/>
+        </div>
+        <button type="submit">Add Item</button>
+     </form> -->
+
+      <!-- Form to update an item-->
+      <!-- <h4>Form for updating an item:</h4>
+      <form id="updateitem">
+         <div class="form-group">
+             <label for="updateid">Item ID:</label>
+             <input type="text" id="updateid" required/>            
+         </div>
+         <div class="form-group">
+            <label for="itemname">Item Name:</label>
+            <input type="text" id="updateditemname" required/>
+            <label for="price">Price:</label>
+            <input type="number" id="updatedprice" required/>
+         </div>
+         <button type="submit">Update Item</button>
+      </form> -->
+
+      <!-- Form to delete an item-->
+      <!-- <h4>Form for deleting an item:</h4>
+      <form id="deleteitem">
+         <div class="form-group">
+             <label for="deleteid">Item ID:</label>
+             <input type="text" id="deleteid" required/>            
+         </div>         
+         <button type="submit">Delete Item</button>
+      </form>
+      <br/> -->
+      <!--Displaying the items-->
+      <!-- <table id="tableitems">
+        <thead>
+            <tr>
+                <th>Item ID</th>
+                <th>ItemName</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table> -->
+      <script>
+        const baseurl='/api/items';
+
+        async function fetchitems(){
+            const response=await fetch(baseurl);
+            const items=await response.json();
+            const tablebody=document.querySelector("#tableitems tbody");
+            tablebody.innerHTML='';
+            items.forEach(element => {
+                const row=document.createElement('tr');
+                row.innerHTML=`<td>${element._id}</td><td>${element.itemname}</td><td>${element.price}</td>`;
+                tablebody.appendChild(row);
+            });
+        }
+        fetchitems();
+
+        //Add Item
+
+        document.getElementById("additem").addEventListener('submit',async(e)=>{
+            e.preventDefault();
+            const itemname=document.getElementById("itemname").value;
+            const price=parseInt(document.getElementById("price").value);
+            await fetch(baseurl,{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({itemname,price})
+            });
+            fetchitems();
+        })
+
+        //For Update
+
+        document.getElementById("updateitem").addEventListener('submit',async(e)=>{
+            e.preventDefault();
+            const id=document.getElementById('updateid').value;
+            console.log("id = "+id);
+            const itemname=document.getElementById("updateditemname").value;
+            console.log("Itemname = "+itemname);            
+            const price=parseInt(document.getElementById("updatedprice").value);
+            console.log("Price ="+price);
+            await fetch(`${baseurl}/${id}`,{
+                method:'PUT',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({itemname,price})
+            });
+            fetchitems();
+        })
+
+        //For delete
+
+        document.getElementById("deleteitem").addEventListener('submit',async(e)=>{
+            e.preventDefault();
+            const id=document.getElementById('deleteid').value;            
+            await fetch(`${baseurl}/${id}`,{
+                method:'DELETE',                
+            });
+            fetchitems();
+        })
+      </script>
+</body>
+</html>

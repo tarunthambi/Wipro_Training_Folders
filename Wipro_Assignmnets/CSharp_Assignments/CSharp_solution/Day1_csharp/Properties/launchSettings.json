@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Day1_csharp": {
+      "commandName": "Project"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}

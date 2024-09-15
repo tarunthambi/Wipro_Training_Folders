@@ -1,0 +1,16 @@
+Title: C# Programming, 
+Author: John Smith,  
+ISBN: 123-456-789,  
+Publication Year: 2020,  
+Genre: Science,  
+Borrowed By: Day4_Assignments.Task7_sub+LibraryMember,  
+Availability: Available
+
+Title: History of Europe, 
+Author: Jane Doe,  
+ISBN: 987-654-321,  
+Publication Year: 2018,  
+Genre: History,  
+Borrowed By: Day4_Assignments.Task7_sub+LibraryMember,  
+Availability: Available
+

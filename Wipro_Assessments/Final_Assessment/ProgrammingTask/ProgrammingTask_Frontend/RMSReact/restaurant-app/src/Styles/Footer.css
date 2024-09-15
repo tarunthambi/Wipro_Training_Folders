@@ -1,0 +1,44 @@
+/* Custom styles for Footer */
+.footer {
+  background-color: #f8f9fa; 
+  color: #343a40; /* Light text color */
+  padding: 50px 0;
+  margin-top: 50px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #343a40; /* Darker color for better visibility */
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-links a:hover {
+  color: #007bff; /* Highlight color on hover */
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .footer-content {
+      flex-direction: row;
+      justify-content: space-between;
+  }
+}

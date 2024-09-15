@@ -1,0 +1,125 @@
+//TASK-1
+
+//switched to db schooldb
+use schooldb;
+
+//Creating students collection
+db.createCollection("students");
+
+//Implementing Schema Validation
+db.createCollection("students", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["name", "email", "age", "grade", "enrolled"],
+            properties: {
+                name: {
+                    bsonType: "string"
+                },
+                email: {
+                    bsonType: "string",
+                    pattern: "^.+@.+\\..+$"
+                },
+                age: {
+                    bsonType: "int",
+                    minimum: 5
+                },
+                grade: {
+                    bsonType: "string"
+                },
+                enrolled: {
+                    bsonType: "bool"
+                }
+            }
+        }
+    }
+})
+
+//Create a Descending Index on Field name
+db.students.createIndex({ name: -1 })
+
+
+
+
+//TASK-2: Insert Sample Data
+
+
+//Inserting Valid Documents:
+
+db.students.insertMany([
+    { name: "Alice", email: "alice@school.com", age: 12, grade: "6", enrolled: true },
+    { name: "Bob", email: "bob@school.com", age: 14, grade: "8", enrolled: true },
+    { name: "Charlie", email: "charlie@school.com", age: 10, grade: "5", enrolled: false },
+    { name: "David", email: "david@school.com", age: 11, grade: "6", enrolled: true },
+    { name: "Eve", email: "eve@school.com", age: 13, grade: "7", enrolled: false },
+    { name: "Frank", email: "frank@school.com", age: 9, grade: "4", enrolled: true },
+    { name: "Grace", email: "grace@school.com", age: 15, grade: "9", enrolled: true },
+    { name: "Hank", email: "hank@school.com", age: 12, grade: "6", enrolled: false },
+    { name: "Ivy", email: "ivy@school.com", age: 13, grade: "7", enrolled: true },
+    { name: "Jack", email: "jack@school.com", age: 14, grade: "8", enrolled: true }
+])
+
+
+//Inserting Invalid Documents to observe errors:
+
+db.students.insertMany([
+    { name: "Invalid1", email: "invalid1school.com", age: 4, grade: "2", enrolled: "yes" },
+    { name: 12345, email: "invalid2@school.com", age: 7, grade: "2", enrolled: true }, 
+    { name: "Invalid3", email: "invalid3@school.com", age: 6, grade: "2" }
+])
+
+//AFTER ENTERING THE ABOVE CODE WE GOT AN ERROR 
+			==> MongoBulkWriteError: Document failed validation
+
+
+
+
+
+// TASK 3
+
+Basic Queries:
+
+//1. Query to find all students who are enrolled
+
+db.students.find({ enrolled: true })
+
+//ANSWER: WE WILL GET 7 DOCUMENTS WHO ARE ENROLLED
+
+
+//2. Query to find students with age greater than 10
+
+db.students.find({ age: { $gt: 10 } })
+
+//ANSWER: WE WILL GET 8 DOCUMENTS WHO'S AGE IS GREATER THAN 10
+
+
+//3. Query to find students whose email ends with @school.com
+
+db.students.find({ email: { $regex: /@school\.com$/ } })
+
+//ANSWER: WE WILL GET ALL 10 DOCUMENTS (BECAUSE IT DOESN'T ALLOW NON VALIDATED EMAIL)
+
+
+
+Advanced Queries:
+
+//1. Query to find the name and email of students who are in grade 5 or higher, sorted by age in descending order
+
+db.students.find({ grade: { $gte: "5" } }, { name: 1, email: 1, _id: 0 }).sort({ age: -1 })
+
+//ANSWER : WE WILL GET 9 DOCUMENTS WHOSE GRADE IS GREATER THAN OR EQUAL TO 5
+
+//2. Query to find all students, skipping the first 2 records and limiting the result to the next 3 records
+
+db.students.find().skip(2).limit(3)
+
+//ANSWER : WE WILL GET 3 DOCUMENTS AS MENTIONED
+
+
+Aggregation:
+
+//1. Aggregation pipeline to group students by grade and count the number of students in each grade
+
+db.students.aggregate([ { $group: { _id: "$grade", count: { $sum: 1 } } } ])
+
+//ANSWER : WE WILL GET 6 DOCUMENTS GROUPED BY grade FIELD AND THIER count

@@ -1,0 +1,39 @@
+.signup-container {
+  min-height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+}
+
+form {
+  background-color: white; 
+  padding: 40px; /* More padding for better spacing */
+  border-radius: 8px; /* Slightly smaller border radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 500px;
+}
+
+.form-control {
+  font-size: 16px;
+  padding: 12px;
+}
+
+.form-control::placeholder {
+  color: #888;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Updated shadow color for focus */
+}
+
+button {
+  font-size: 16px; /* Adjusted font size */
+  padding: 10px; /* Consistent padding */
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  color: #ffffff; /* White text on hover */
+}

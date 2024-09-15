@@ -1,0 +1,39 @@
+.color-picker {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  gap: 20px; 
+}
+
+.circle {
+  display: flex;
+  width: 200px;
+  height:200px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.2); 
+}
+
+.color-picker .btn-group .btn {
+  width: 20px;
+  height: 40px;
+  margin-right: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.color-picker .btn-group .btn.active {
+  border: 2px solid #000;
+  transform: scale(1.1);
+}
+
+.inside-block {
+  display: flex;
+  background-color: #f8f9fa;
+  align-items: center;
+  border-radius: 30px;
+  width: 30%;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+  padding: 10px;
+}
